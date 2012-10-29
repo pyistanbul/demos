@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+
+{% block title %}{% trans "Search Results" %}{% endblock %}
+
+
+{% block content %}
+
+<h2>{% trans "Search" %}</h2>
+
+<form action="" method="get" accept-charset="utf-8">
+	{{ form.as_p }}
+
+	<p><input type="submit" value="{% trans "Search" %}"></p>
+</form>
+
+{% if query %}
+
+<h2>{% trans "Results" %}</h2>
+
+{% for result in page.object_list %}
+	<p>
+		<a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a>
+	</p>
+{% empty %}
+	<p>{% trans "No results found." %}</p>
+{% endfor %}
+
+{% if page.has_previous or page.has_next %}
+<p>
+	{% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}
+	&laquo; {% trans "Previous" %}
+	{% if page.has_previous %}</a>{% endif %} 
+	|
+	{% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}
+		{% trans "Next" %} &raquo;
+	{% if page.has_next %}</a>{% endif %}
+</div>
+{% endif %}
+
+{% endif %}
+
+{% endblock %}
