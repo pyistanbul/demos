@@ -8,17 +8,14 @@ class CategoryInline(admin.TabularInline):
     extra = 5
     exclude = ('description',)
 
+
 class CategoryAdmin(admin.ModelAdmin):
-
     prepopulated_fields = {'slug' : ('name',)}
-
     inlines = (CategoryInline,)
 
 
 class ProductCustomFilter(SimpleListFilter):
-
     title = u'Product Custom'
-
     parameter_name = 'prodcut_custom'
 
     def lookups(self, request, model_admin):
@@ -33,6 +30,7 @@ class ProductCustomFilter(SimpleListFilter):
         if self.value() == '1':
             return queryset.filter(price__lt = 120)
 
+
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name','price','price_with_unit','active')
 
@@ -43,8 +41,6 @@ class ProductAdmin(admin.ModelAdmin):
     price_with_unit.admin_order_field = 'price'
 
     list_editable = ('active',)
-
-
 
     def has_add_permission(self, request):
         if request.user.is_superuser:
@@ -61,8 +57,6 @@ class ProductAdmin(admin.ModelAdmin):
 
     list_filter = ('category',ProductCustomFilter)
 
-
-
-
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Product,ProductAdmin)
+

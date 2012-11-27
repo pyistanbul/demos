@@ -2,7 +2,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-
 class Category(models.Model):
     name = models.CharField(max_length = 255, verbose_name = u'Kategori İsmi')
     slug = models.SlugField(max_length = 255, verbose_name = u'Kategori Slug')
@@ -15,8 +14,6 @@ class Category(models.Model):
     class Meta:
         verbose_name = _(u'Kategori')
         verbose_name_plural = _(u'Kategoriler')
-
-
 
 
 class Product(models.Model):
